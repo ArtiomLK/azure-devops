@@ -4,7 +4,7 @@
 
 <https://github.com/ArtiomLK/commands>
 
-## Deploy VMSS that could be used as ADO Self Hosted Agents or GH Self Hosted Runners
+## Deploy AZ VMSS that could be used as ADO Self Hosted Agents or GH Self Hosted Runners
 
 ```bash
 # ------------------------------------------------------------------------------------------------
