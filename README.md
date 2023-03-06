@@ -28,17 +28,17 @@ user_n="artiomlk";                                                      echo $us
 # ---
 vnet_pre="100.100";                                                     echo $vnet_pre
 vnet_n="vnet-$app-$env";                                                echo $vnet_n
-vnet_addr="$vnet_pre.0.0/23";                                           echo $vnet_addr
+vnet_addr="$vnet_pre.0.0/24";                                           echo $vnet_addr
 
 # ---
 # SSH Key & KV
 # ---
 kv_rg="rg-kv-$app-$env";                                                echo $kv_rg
-kv_n="kv-ado-runner";                                                   echo $kv_n
+kv_n="kv-hosted-agents";                                                echo $kv_n
 ssh_k_n="ssh-$app-$env";                                                echo $ssh_k_n
 
 # ---
-# Self Hosted Runners vmss
+# Self Hosted Runners vmss (Linux)
 # ---
 vmss_n="vmss-$app-$env";                                                echo $vmss_n
 vmss_img="UbuntuLTS";                                                   echo $vmss_img
