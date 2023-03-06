@@ -31,15 +31,6 @@ vnet_n="vnet-$app-$env";                                                echo $vn
 vnet_addr="$vnet_pre.0.0/23";                                           echo $vnet_addr
 
 # ---
-# Bastion
-# ---
-snet_n_bas="AzureBastionSubnet";                                        echo $snet_n_bas
-snet_addr_bas="$vnet_pre.0.224/27";                                     echo $snet_addr_bas
-nsg_n_bastion="nsg-bastion";                                            echo $nsg_n_bastion
-bastion_n="bastion-$app-$env";                                          echo $bastion_n
-bastion_pip="pip-bastion-$app-$env";                                    echo $bastion_pip
-
-# ---
 # SSH Key & KV
 # ---
 kv_rg="rg-kv-$app-$env";                                                echo $kv_rg
