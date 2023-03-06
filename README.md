@@ -16,7 +16,6 @@ export MSYS_NO_PATHCONV=1
 # Main Vars
 # ---
 sub_id='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';                          echo $sub_id      # must update
-repo_n='devops';                                                        echo $repo_n      # must update
 app="ado-self-hosted-agents";                                           echo $app
 env="dev";                                                              echo $env
 app_rg="rg-$app-$env";                                                  echo $app_rg
