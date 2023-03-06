@@ -44,18 +44,18 @@ bastion_pip="pip-bastion-$app-$env";                                    echo $ba
 # ---
 kv_rg="rg-kv-$app-$env";                                                echo $kv_rg
 kv_n="kv-ado-runner";                                                   echo $kv_n
-ssh_k_n="ssh-$app-$repo_n-$env";                                        echo $ssh_k_n
+ssh_k_n="ssh-$app-$env";                                                echo $ssh_k_n
 
 # ---
 # Self Hosted Runners vmss
 # ---
-vmss_n="vmss-$app-$repo_n-$env";                                        echo $vmss_n
+vmss_n="vmss-$app-$env";                                                echo $vmss_n
 vmss_img="UbuntuLTS";                                                   echo $vmss_img
 vmss_sku="Standard_B2s";                                                echo $vmss_sku
 vmss_instance_count="1";                                                echo $vmss_instance_count
-snet_vmss_n="snet-$app-$repo_n";                                        echo $snet_vmss_n
+snet_vmss_n="snet-$app";                                                echo $snet_vmss_n
 snet_addr_vmss="$vnet_pre.1.0/24";                                      echo $snet_addr_vmss          # must update
-nsg_vmss_n="nsg-$app-$repo_n";                                          echo $nsg_vmss_n
+nsg_vmss_n="nsg-$app";                                                  echo $nsg_vmss_n
 
 # ------------------------------------------------------------------------------------------------
 # DEPLOYMENT CREATE COMPONENTS
