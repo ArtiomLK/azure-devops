@@ -44,9 +44,9 @@ lin_vmss_n="vmss-lin-$app-$env-$l";                                           ec
 lin_vmss_img="UbuntuLTS";                                                     echo $lin_vmss_img
 lin_vmss_sku="Standard_D2_v5";                                                echo $lin_vmss_sku
 lin_vmss_instance_count="1";                                                  echo $lin_vmss_instance_count
-lin_snet_vmss_n="snet-$app";                                                  echo $lin_snet_vmss_n
+lin_snet_vmss_n="snet-lin-$app";                                              echo $lin_snet_vmss_n
 lin_snet_addr_vmss="$vnet_pre.0.0/24";                                        echo $lin_snet_addr_vmss          # must update
-lin_nsg_vmss_n="nsg-$app";                                                    echo $lin_nsg_vmss_n
+lin_nsg_vmss_n="nsg-lin-$app";                                                echo $lin_nsg_vmss_n
 
 # ---
 # Self Hosted Runners vmss (Windows)
@@ -55,14 +55,19 @@ win_vmss_n="vmss-win-$app-$env-$l";                                           ec
 win_vmss_img="Win2022AzureEditionCore ";                                      echo $lin_vmss_img
 win_vmss_sku="Standard_D2_v5";                                                echo $lin_vmss_sku
 win_vmss_instance_count="1";                                                  echo $lin_vmss_instance_count
-win_snet_vmss_n="snet-$app";                                                  echo $lin_snet_vmss_n
+win_snet_vmss_n="snet-win-$app";                                              echo $lin_snet_vmss_n
 win_snet_addr_vmss="$vnet_pre.1.0/24";                                        echo $lin_snet_addr_vmss          # must update
-win_nsg_vmss_n="nsg-$app";                                                    echo $lin_nsg_vmss_n
+win_nsg_vmss_n="nsg-win-$app";                                                echo $lin_nsg_vmss_n
 
 # ------------------------------------------------------------------------------------------------
-# DEPLOYMENT CREATE COMPONENTS
+# ------------------------------------------------------------------------------------------------
+# DEPLOYMENT - CREATE COMPONENTS
+# ------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------
 
+# ------------------------------------------------------------------------------------------------
+# RGs
+# ------------------------------------------------------------------------------------------------
 # App RG
 az group create \
 --subscription $sub_id \
@@ -77,6 +82,9 @@ az group create \
 --location $l \
 --tags $tags
 
+# ------------------------------------------------------------------------------------------------
+# VNET
+# ------------------------------------------------------------------------------------------------
 # Main vNet
 az network vnet create \
 --subscription $sub_id \
@@ -86,6 +94,9 @@ az network vnet create \
 --location $l \
 --tags $tags
 
+# ------------------------------------------------------------------------------------------------
+# KV
+# ------------------------------------------------------------------------------------------------
 # Key Vault
 az keyvault create \
 --subscription $sub_id \
@@ -95,7 +106,7 @@ az keyvault create \
 --tags $tags
 
 # ------------------------------------------------------------------------------------------------
-# Create an SSH Keys and KV
+# Create an SSH Keys
 # ------------------------------------------------------------------------------------------------
 # Generate new ssh pub nad private keys
 az sshkey create \
@@ -105,10 +116,10 @@ az sshkey create \
 --tags $tags
 
 # ------------------------------------------------------------------------------------------------
-# Create Linux SSH KEYS
+# Create Linux SSH KEYS and store it on the KV
 # ------------------------------------------------------------------------------------------------
 # Set the private key file
-ssh_priv_key_path='C:\Users\artioml\.ssh\1677436842_525029'; echo $ssh_priv_key_path  # must update
+ssh_priv_key_path='C:\Users\artioml\.ssh\1678149648_587594'; echo $ssh_priv_key_path  # must update
 
 # upload private key to the KV
 az keyvault secret set --vault-name $kv_n --name $ssh_k_n --value "@$ssh_priv_key_path"
