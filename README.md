@@ -18,8 +18,8 @@ export MSYS_NO_PATHCONV=1
 sub_id='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';                                echo $sub_id      # must update
 app="ado-self-hosted-agents";                                                 echo $app
 env="dev";                                                                    echo $env
-app_rg="rg-$app-$env";                                                        echo $app_rg
 l="eastus2";                                                                  echo $l
+app_rg="rg-$app-$env-$l";                                                     echo $app_rg
 tags="project=bicephub env=$env architecture=$app";                           echo $tags
 user_n="artiomlk";                                                            echo $user_n
 
@@ -27,20 +27,20 @@ user_n="artiomlk";                                                            ec
 # NETWORK TOPOLOGY
 # ---
 vnet_pre="100.100";                                                           echo $vnet_pre
-vnet_n="vnet-$app-$env";                                                      echo $vnet_n
+vnet_n="vnet-$app-$env-$l";                                                   echo $vnet_n
 vnet_addr="$vnet_pre.0.0/24";                                                 echo $vnet_addr
 
 # ---
 # SSH Key & KV
 # ---
-kv_rg="rg-kv-$app-$env";                                                      echo $kv_rg
+kv_rg="rg-kv-$app-$env-$l";                                                   echo $kv_rg
 kv_n="kv-hosted-agents";                                                      echo $kv_n
-ssh_k_n="ssh-$app-$env";                                                      echo $ssh_k_n
+ssh_k_n="ssh-$app-$env-$l";                                                   echo $ssh_k_n
 
 # ---
 # Self Hosted Runners vmss (Linux)
 # ---
-lin_vmss_n="vmss-lin-$app-$env";                                              echo $lin_vmss_n
+lin_vmss_n="vmss-lin-$app-$env-$l";                                           echo $lin_vmss_n
 lin_vmss_img="UbuntuLTS";                                                     echo $lin_vmss_img
 lin_vmss_sku="Standard_D2_v5";                                                echo $lin_vmss_sku
 lin_vmss_instance_count="1";                                                  echo $lin_vmss_instance_count
@@ -51,7 +51,7 @@ lin_nsg_vmss_n="nsg-$app";                                                    ec
 # ---
 # Self Hosted Runners vmss (Windows)
 # ---
-win_vmss_n="vmss-win-$app-$env";                                              echo $lin_vmss_n
+win_vmss_n="vmss-win-$app-$env-$l";                                           echo $lin_vmss_n
 win_vmss_img="Win2022AzureEditionCore ";                                      echo $lin_vmss_img
 win_vmss_sku="Standard_D2_v5";                                                echo $lin_vmss_sku
 win_vmss_instance_count="1";                                                  echo $lin_vmss_instance_count
