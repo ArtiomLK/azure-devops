@@ -28,7 +28,7 @@ user_n="artiomlk";                                                            ec
 # ---
 vnet_pre="100.100";                                                           echo $vnet_pre
 vnet_n="vnet-$app-$env-$l";                                                   echo $vnet_n
-vnet_addr="$vnet_pre.0.0/24";                                                 echo $vnet_addr
+vnet_addr="$vnet_pre.0.0/23";                                                 echo $vnet_addr
 
 # ---
 # SSH Key & KV
@@ -179,14 +179,13 @@ az vmss show \
 # ------------------------------------------------------------------------------------------------
 # Store Windows Password on the Azure Key Vault
 # ------------------------------------------------------------------------------------------------
-
 temp_pass=$(chars="abcd1234ABCD\!@#$%^&*()"; for i in {1..15}; do echo -n "${chars:RANDOM%${#chars}:1}"; done; echo); echo $temp_pass
 
 az keyvault secret set --vault-name $kv_n --name "win-ado-pass" --value $temp_pass
 az keyvault secret show --vault-name $kv_n --name "win-ado-pass" --query "value"
 
 # ------------------------------------------------------------------------------------------------
-# Create Linux Self Hosted Agents VMSS
+# Create Windows Self Hosted Agents VMSS
 # ------------------------------------------------------------------------------------------------
 # Self Hosted NSG with Default rules
 az network nsg create \
@@ -202,7 +201,7 @@ az network vnet subnet create \
 --resource-group $app_rg \
 --vnet-name $vnet_n \
 --name $win_snet_vmss_n \
---address-prefixes $win_snet_addr_vmss \lin_vmss_n
+--address-prefixes $win_snet_addr_vmss \
 --network-security-group $win_nsg_vmss_n
 
 # vm scale set agents
