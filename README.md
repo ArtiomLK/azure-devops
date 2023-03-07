@@ -15,7 +15,7 @@ export MSYS_NO_PATHCONV=1
 # ---
 # Main Vars
 # ---
-sub_id='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';                                echo $sub_id      # must update
+sub_id="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";                                echo $sub_id      # must update
 app="ado-self-hosted-agents";                                                 echo $app
 env="dev";                                                                    echo $env
 l="eastus2";                                                                  echo $l
@@ -51,13 +51,16 @@ lin_nsg_vmss_n="nsg-lin-$app";                                                ec
 # ---
 # Self Hosted Runners vmss (Windows)
 # ---
-win_vmss_n="vmss-win-$app-$env-$l";                                           echo $lin_vmss_n
-win_vmss_img="Win2022AzureEditionCore ";                                      echo $lin_vmss_img
-win_vmss_sku="Standard_D2_v5";                                                echo $lin_vmss_sku
-win_vmss_instance_count="1";                                                  echo $lin_vmss_instance_count
-win_snet_vmss_n="snet-win-$app";                                              echo $lin_snet_vmss_n
-win_snet_addr_vmss="$vnet_pre.1.0/24";                                        echo $lin_snet_addr_vmss          # must update
-win_nsg_vmss_n="nsg-win-$app";                                                echo $lin_nsg_vmss_n
+win_vmss_n="vmss-win-$app-$env-$l";                                           echo $win_vmss_n
+win_vmss_img="Win2022Datacenter";                                             echo $win_vmss_img
+win_vmss_sku="Standard_D2_v5";                                                echo $win_vmss_sku
+win_vmss_instance_count="1";                                                  echo $win_vmss_instance_count
+win_snet_vmss_n="snet-win-$app";                                              echo $win_snet_vmss_n
+win_snet_addr_vmss="$vnet_pre.1.0/24";                                        echo $win_snet_addr_vmss          # must update
+win_nsg_vmss_n="nsg-win-$app";                                                echo $win_nsg_vmss_n
+
+# other images
+# ['CentOS', 'Debian', 'Flatcar', 'openSUSE-Leap', 'RHEL', 'SLES', 'UbuntuLTS', 'Win2022Datacenter', 'Win2022AzureEditionCore', 'Win2019Datacenter', 'Win2016Datacenter', 'Win2012R2Datacenter', 'Win2012Datacenter', 'Win2008R2SP1'].
 
 # ------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------
@@ -119,7 +122,7 @@ az sshkey create \
 # Create Linux SSH KEYS and store it on the KV
 # ------------------------------------------------------------------------------------------------
 # Set the private key file
-ssh_priv_key_path='C:\Users\artioml\.ssh\1678149648_587594'; echo $ssh_priv_key_path  # must update
+ssh_priv_key_path='C:\Users\artioml\.ssh\1678150964_6548357'; echo $ssh_priv_key_path  # must update
 
 # upload private key to the KV
 az keyvault secret set --vault-name $kv_n --name $ssh_k_n --value "@$ssh_priv_key_path"
@@ -179,7 +182,7 @@ az vmss show \
 # ------------------------------------------------------------------------------------------------
 # Store Windows Password on the Azure Key Vault
 # ------------------------------------------------------------------------------------------------
-temp_pass=$(chars="abcd1234ABCD\!@#$%^&*()"; for i in {1..15}; do echo -n "${chars:RANDOM%${#chars}:1}"; done; echo); echo $temp_pass
+temp_pass=$(chars="abcd1234ABCD\!@#$%^&*()"; for i in {1..25}; do echo -n "${chars:RANDOM%${#chars}:1}"; done; echo); echo $temp_pass
 
 az keyvault secret set --vault-name $kv_n --name "win-ado-pass" --value $temp_pass
 az keyvault secret show --vault-name $kv_n --name "win-ado-pass" --query "value"
@@ -222,8 +225,15 @@ az vmss create \
 --load-balancer "" \
 --assign-identity \
 --admin-username $user_n \
---admin-password $temp_pass \
+--admin-password "$temp_pass" \
 --tags $tags
+
+# Verify Manual update policy
+az vmss show \
+--subscription $sub_id \
+--resource-group $app_rg \
+--name $win_vmss_n \
+--output table
 
 # ------------------------------------------------------------------------------------------------
 # Create vnet peering
