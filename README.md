@@ -225,7 +225,7 @@ az vmss create \
 --load-balancer "" \
 --assign-identity \
 --admin-username $user_n \
---admin-password "$temp_pass" \
+--admin-password $temp_pass \
 --tags $tags
 
 # Verify Manual update policy
