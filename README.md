@@ -28,7 +28,7 @@ user_n="artiomlk";                                                            ec
 # ---
 vnet_pre="100.100";                                                           echo $vnet_pre
 vnet_n="vnet-$app-$env-$l";                                                   echo $vnet_n
-vnet_addr="$vnet_pre.0.0/23";                                                 echo $vnet_addr
+vnet_addr="$vnet_pre.2.0/23";                                                 echo $vnet_addr
 
 # ---
 # SSH Key & KV
@@ -45,7 +45,7 @@ lin_vmss_img="UbuntuLTS";                                                     ec
 lin_vmss_sku="Standard_D2_v5";                                                echo $lin_vmss_sku
 lin_vmss_instance_count="1";                                                  echo $lin_vmss_instance_count
 lin_snet_vmss_n="snet-lin-$app";                                              echo $lin_snet_vmss_n
-lin_snet_addr_vmss="$vnet_pre.0.0/24";                                        echo $lin_snet_addr_vmss          # must update
+lin_snet_addr_vmss="$vnet_pre.2.0/24";                                        echo $lin_snet_addr_vmss          # must update
 lin_nsg_vmss_n="nsg-lin-$app";                                                echo $lin_nsg_vmss_n
 
 # ---
@@ -56,7 +56,7 @@ win_vmss_img="Win2022Datacenter";                                             ec
 win_vmss_sku="Standard_D2_v5";                                                echo $win_vmss_sku
 win_vmss_instance_count="1";                                                  echo $win_vmss_instance_count
 win_snet_vmss_n="snet-win-$app";                                              echo $win_snet_vmss_n
-win_snet_addr_vmss="$vnet_pre.1.0/24";                                        echo $win_snet_addr_vmss          # must update
+win_snet_addr_vmss="$vnet_pre.3.0/24";                                        echo $win_snet_addr_vmss          # must update
 win_nsg_vmss_n="nsg-win-$app";                                                echo $win_nsg_vmss_n
 
 # other images
@@ -122,7 +122,7 @@ az sshkey create \
 # Create Linux SSH KEYS and store it on the KV
 # ------------------------------------------------------------------------------------------------
 # Set the private key file
-ssh_priv_key_path='C:\Users\artioml\.ssh\1678150964_6548357'; echo $ssh_priv_key_path  # must update
+ssh_priv_key_path='C:\Users\artioml\.ssh\1678318438_3874967'; echo $ssh_priv_key_path  # must update
 
 # upload private key to the KV
 az keyvault secret set --vault-name $kv_n --name $ssh_k_n --value "@$ssh_priv_key_path"
